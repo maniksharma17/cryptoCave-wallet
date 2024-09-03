@@ -47,7 +47,7 @@ export const WalletsGrid = ({wallets}: {wallets: WalletTypes[]}) => {
 
       index++
       
-      return <WalletCard wallet={wallet} publicKey={publicKey} privateKey={privateKey} index={index}></WalletCard>
+      return <WalletCard key={wallet.id} wallet={wallet} publicKey={publicKey} privateKey={privateKey} index={index}></WalletCard>
     })}
   </div>
 }
@@ -57,7 +57,7 @@ const WalletCard = ({wallet, publicKey, privateKey, index}: any) => {
   const [ visibility, setVisibility ] = useState(false)
   const { toast } = useToast()
 
-  return <div key={wallet.id}>  
+  return <div>  
   <Card className="bg-gray-800 border-gray-700 shadow-xl">
     <CardHeader className='relative bg-white text-black rounded-xl mb-8 rounded-b-none'>
       <button onClick={()=>{

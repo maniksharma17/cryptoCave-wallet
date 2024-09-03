@@ -3,7 +3,7 @@
 import { useRecoilState } from "recoil";
 import { mnemonicToSeed } from "bip39";
 import { derivePath } from 'ed25519-hd-key'
-import { Keypair } from "@solana/web3.js";
+import { Keypair, PublicKey } from "@solana/web3.js";
 import nacl from "tweetnacl"
 import { Wallet, HDNodeWallet } from "ethers";
 import { WalletsAtom, walletCountAtom } from "@/lib/store/atoms/atom";
@@ -27,6 +27,22 @@ export const CreateWalletButton = ({mnemonic, blockchainCode}: {mnemonic: string
       <Button className={cn('p-6 text-lg my-6', {'hidden': mnemonic==''})} onClick={createWallet}>Add ETH Wallet</Button>
     </div>
   }
+}
+
+interface WalletTypes {
+  id: number,
+  publicKey: PublicKey|string,
+  privateKey: Uint8Array|string
+}
+
+
+interface createWalletHandlerTypes{
+  blockchainCode: string,
+  mnemonic: string,
+  currentIndex: number,
+  setCurrentIndex: (x: number)=>void,
+  walletsArray: WalletTypes[],
+  setWalletsArray: (x: WalletTypes[])=>void
 }
 
 const createWalletHandler = async ({blockchainCode, mnemonic, currentIndex, setCurrentIndex, walletsArray, setWalletsArray}: createWalletHandlerTypes) => {
